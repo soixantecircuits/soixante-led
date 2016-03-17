@@ -1,0 +1,104 @@
+<positions>
+    <element name="Video">
+        <x>0.000000000</x>
+        <y>352.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color0">
+        <x>0.000000000</x>
+        <y>398.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color1">
+        <x>0.000000000</x>
+        <y>444.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color10">
+        <x>0.000000000</x>
+        <y>858.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color11">
+        <x>0.000000000</x>
+        <y>904.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color12">
+        <x>0.000000000</x>
+        <y>950.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color13">
+        <x>0.000000000</x>
+        <y>996.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color14">
+        <x>0.000000000</x>
+        <y>1042.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color15">
+        <x>0.000000000</x>
+        <y>1088.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color2">
+        <x>0.000000000</x>
+        <y>490.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color3">
+        <x>0.000000000</x>
+        <y>536.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color4">
+        <x>0.000000000</x>
+        <y>582.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color5">
+        <x>0.000000000</x>
+        <y>628.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color6">
+        <x>0.000000000</x>
+        <y>674.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color7">
+        <x>0.000000000</x>
+        <y>720.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color8">
+        <x>0.000000000</x>
+        <y>766.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="color9">
+        <x>0.000000000</x>
+        <y>812.000000000</y>
+        <width>850.000000000</width>
+        <height>40.000000000</height>
+    </element>
+</positions>

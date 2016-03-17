@@ -3,17 +3,9 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 #include "ofxOPC.h"
+#include "Led.h"
+#include "Chase.h"
 
-class Led {
-  public:
-    Led (ofVec2f pos, int index){
-      this->pos = pos;
-      this->index = index;
-    }
-    ofVec2f pos;
-    ofColor c;
-    int index;
-};
 
 class ofApp : public ofBaseApp{
 
@@ -46,8 +38,10 @@ class ofApp : public ofBaseApp{
     bool mute;
     void initRings();
     void drawRings();
+    void initChase();
 
     vector <Led> leds;
     ofxOPC opcClient;
+    Chase chase;
 
 };

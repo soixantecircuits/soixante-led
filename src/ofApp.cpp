@@ -11,12 +11,17 @@ void ofApp::setup(){
 
   initTimeline();
 #ifndef TARGET_RASPBERRY_PI
-  initVideo();
+  //initVideo();
 #endif
-  addColorTracks();
+  //addColorTracks();
+
+	timeline.addCurves("length", ofRange(0, 150));
+	timeline.addCurves("speed", ofRange(0, 200));
+	timeline.addColors("color");
   mute = false;
 
   initRings();
+  initChase();
   opcClient.setup("127.0.0.1", 7890);
 
   outputRectangle.set(500, 25, 250*16/9., 250);
@@ -41,8 +46,6 @@ void ofApp::initTimeline(){
   ofxTimeline::removeCocoaMenusFromGlut("nike-chasing-light");
   timeline.setup();
   timeline.setFrameRate(30);
-
-  //timeline.addVideoTrack("video", "rodarte-fw13-480p.mp4");
 
   timeline.setPageName("Inner Circle 1");
   timeline.addPage("Outer Circle 1");
@@ -125,6 +128,17 @@ void ofApp::loadVideo(string videoPath){
 }
 
 //--------------------------------------------------------------
+void ofApp::initChase(){
+  chase.setLeds(leds);
+  chase.setStartIndex(0);
+  chase.setEndIndex(64);
+  chase.setChaseLength(20);
+  chase.setSpeed(10);
+  chase.setColor(ofColor(100));
+}
+
+
+//--------------------------------------------------------------
 void ofApp::bangFired(ofxTLBangEventArgs& args){
   cout << "bang fired!" << args.flag << endl;
 }
@@ -149,10 +163,14 @@ void ofApp::update(){
   outputRectangle.x =  ofGetWidth()/2 - outputRectangle.width/2;
   outputRectangle.y = timeline.getBottomLeft().y;
   */
+  chase.setChaseLength(timeline.getValue("length"));
+  chase.setSpeed(timeline.getValue("speed"));
+  chase.setColor(timeline.getColor("color"));
 
-  for (int i = 0; i < 16; i++) {
-    leds[i].c = timeline.getColor("color"+ofToString(i));
+  for (int i = 0; i < leds.size(); i++) {
+    leds[i].c = ofColor::black;
   }
+  chase.update();
 
   // If the client is not connected do not try and send information
   if (!opcClient.isConnected())
@@ -169,12 +187,12 @@ void ofApp::update(){
       }
       opcClient.writeChannelOne(colors);
       vector <ofColor> colors2;
-      for (int i = 32; i < leds.size(); i++) {
+      for (int i = 64; i < 128; i++) {
         colors2.push_back(leds[i].c);
       }
       opcClient.writeChannelTwo(colors2);
       vector <ofColor> colors3;
-      for (int i = 64; i < leds.size(); i++) {
+      for (int i = 128; i < 64*3; i++) {
         colors3.push_back(leds[i].c);
       }
       opcClient.writeChannelThree(colors3);
@@ -186,11 +204,11 @@ void ofApp::update(){
 void ofApp::initRings(){
   ofVec2f previewPos = ofVec2f(50, 50);
 
-  // left ring, inner leds
-  float size = 16;
+  // zone 1
+  float size = 700;
   float x = previewPos.x + 50; // Offset Value for grabber
   float y = previewPos.y + 50; // Offset Value for grabber
-  float radius = 50;
+  float radius = 90;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
@@ -202,7 +220,32 @@ void ofApp::initRings(){
     leds.push_back(Led(ofVec2f(rx,ry), i));
   }
   
-  // left ring, outer leds
+  // zone 2
+  radius = 80;
+  for (int i = 0; i < size; i++)
+  {
+    float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
+
+    // Generate the position of the grabber points
+    float rx = x + (radius * cos(angle));
+    float ry = y + (radius * sin(angle));
+
+    leds.push_back(Led(ofVec2f(rx,ry), i));
+  }
+
+  // zone 3
+  radius = 70;
+  for (int i = 0; i < size; i++)
+  {
+    float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
+
+    // Generate the position of the grabber points
+    float rx = x + (radius * cos(angle));
+    float ry = y + (radius * sin(angle));
+
+    leds.push_back(Led(ofVec2f(rx,ry), i));
+  }
+  // zone 4
   radius = 60;
   for (int i = 0; i < size; i++)
   {
@@ -215,10 +258,8 @@ void ofApp::initRings(){
     leds.push_back(Led(ofVec2f(rx,ry), i));
   }
 
-  // middle ring, inner leds
-  x = x + radius + 15; // Offset Value for grabber
-  y = y + radius + 30; // Offset Value for grabber
-  radius = 30;
+  // zone 5
+  radius = 50;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
@@ -229,35 +270,8 @@ void ofApp::initRings(){
 
     leds.push_back(Led(ofVec2f(rx,ry), i));
   }
-  // middle ring, outer leds
+  // zone 5
   radius = 40;
-  for (int i = 0; i < size; i++)
-  {
-    float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
-
-    // Generate the position of the grabber points
-    float rx = x + (radius * cos(angle));
-    float ry = y + (radius * sin(angle));
-
-    leds.push_back(Led(ofVec2f(rx,ry), i));
-  }
-
-  // right ring, inner leds
-  x = previewPos.x + 250; // Offset Value for grabber
-  y = previewPos.y + 50; // Offset Value for grabber
-  radius = 35;
-  for (int i = 0; i < size; i++)
-  {
-    float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
-
-    // Generate the position of the grabber points
-    float rx = x + (radius * cos(angle));
-    float ry = y + (radius * sin(angle));
-
-    leds.push_back(Led(ofVec2f(rx,ry), i));
-  }
-  // right ring, outer leds
-  radius = 45;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);

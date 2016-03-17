@@ -6,8 +6,6 @@ Controlling LED through fadeCandy, using openFrameworks and ofxTimeline
 
 Install [openFrameworks](openframeworks.cc)
 
-Install ofxTimeline
-
 Clone this repo inside of/apps/soixante
 
 and then 

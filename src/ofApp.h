@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 #include "MyofxOPC.h"
-#include "Led.h"
+#include "LedRing.h"
 #include "Chase.h"
 
 
@@ -27,16 +27,17 @@ class ofApp : public ofBaseApp{
 		ofxTimeline timeline;
     void initTimeline();
 		void bangFired(ofxTLBangEventArgs& args);
-    bool loaded;
-    ofxXmlSettings settings;
-    ofRectangle contentRectangle; //matched to video size
-    ofRectangle outputRectangle;
     void initRings();
     void drawRings();
     void initChase();
     void updateOPC();
 
-    vector <Led> leds;
+    LedRing ringLow1;
+    LedRing ringLow2;
+    LedRing ringLow3;
+    LedRing ringLow4;
+    LedRing ringLow5;
+    LedRing ringLow6;
     MyofxOPC opcClient;
     Chase chase;
 

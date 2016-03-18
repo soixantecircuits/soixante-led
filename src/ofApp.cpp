@@ -18,7 +18,6 @@ void ofApp::setup(){
   initChase();
   opcClient.setup("127.0.0.1", 7890);
 
-  outputRectangle.set(500, 25, 250*16/9., 250);
   timeline.play();
 }
 
@@ -41,7 +40,7 @@ void ofApp::initTimeline(){
 
 //--------------------------------------------------------------
 void ofApp::initChase(){
-  chase.setLeds(leds);
+  chase.setLeds(ringLow1.leds);
   chase.setStartIndex(0);
   chase.setEndIndex(64);
   chase.setChaseLength(20);
@@ -57,17 +56,17 @@ void ofApp::bangFired(ofxTLBangEventArgs& args){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-//update views
-  if(!loaded){
-    contentRectangle = ofRectangle(0,0, 16, 9); 
-  }
   chase.setChaseLength(timeline.getValue("length"));
   chase.setSpeed(timeline.getValue("speed"));
   chase.setColor(timeline.getColor("color"));
 
-  for (int i = 0; i < leds.size(); i++) {
-    leds[i].c = ofColor::black;
-  }
+  ringLow1.black();
+  ringLow2.black();
+  ringLow3.black();
+  ringLow4.black();
+  ringLow5.black();
+  ringLow6.black();
+
   chase.update();
 
   updateOPC();
@@ -85,7 +84,7 @@ void ofApp::updateOPC(){
   }
   else
   {
-      opcClient.writeAllChannels(leds);
+      opcClient.writeAllChannels(ringLow1.leds);
   }
   opcClient.update();
 }
@@ -107,7 +106,7 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    leds.push_back(Led(ofVec2f(rx,ry), i));
+    ringLow1.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
   
   // zone 2
@@ -120,7 +119,7 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    leds.push_back(Led(ofVec2f(rx,ry), i));
+    ringLow2.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
 
   // zone 3
@@ -133,7 +132,7 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    leds.push_back(Led(ofVec2f(rx,ry), i));
+    ringLow3.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
   // zone 4
   radius = 60;
@@ -145,7 +144,7 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    leds.push_back(Led(ofVec2f(rx,ry), i));
+    ringLow4.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
 
   // zone 5
@@ -158,9 +157,9 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    leds.push_back(Led(ofVec2f(rx,ry), i));
+    ringLow5.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
-  // zone 5
+  // zone 6
   radius = 40;
   for (int i = 0; i < size; i++)
   {
@@ -170,50 +169,27 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    leds.push_back(Led(ofVec2f(rx,ry), i));
+    ringLow6.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
-  for (int i = 0; i < leds.size(); i++)
-  {
-      leds[i].c = ofColor::black;
-  }
-  
-
-}
-
-//--------------------------------------------------------------
-void ofApp::drawRings()
-{
-    // dessine les cercles
-    for (int i = 0; i < leds.size(); i++)
-    {
-        ofFill();
-        ofSetColor(leds[i].c);
-        ofDrawCircle(leds[i].pos.x, leds[i].pos.y, 4);
-    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
   ofBackground(255*.15);
-  if(loaded){
-    ofSetColor(255);
-    timeline.getVideoPlayer("Video")->draw(outputRectangle);        
-  }
-  // Where to draw the ring!
-
-  /*
-    ofPushMatrix();
-    float x = 50; // Offset Value for grabber
-    float y = 50; // Offset Value for grabber
-    ofTranslate(x, y);
-    ofFill();
-    ofSetColor(100);
-    ofRect(-50,-50,100,100);
-    ledRing();
-    ofPopMatrix();
-    */
   timeline.draw();	
   drawRings();
+}
+
+//--------------------------------------------------------------
+void ofApp::drawRings(){
+
+  ringLow1.draw();
+  ringLow2.draw();
+  ringLow3.draw();
+  ringLow4.draw();
+  ringLow5.draw();
+  ringLow6.draw();
+
 }
 
 //--------------------------------------------------------------

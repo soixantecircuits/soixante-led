@@ -51,4 +51,28 @@ class MyofxOPC : public ofxOPC {
       // Send the data
       client.sendRawBytes((char *)(OPC_SPC_packet), OPC_SPC_packet_length);
   }
+  //--------------------------------------------------------------
+  void writeAll(vector<Led>pix, int offset = 0, int opc_offset = 0)
+  {
+      // Bail early if there's no pixel data or there is too much data
+      if(pix.empty())
+      {
+          ofLogError() << "No Data";
+          return;
+
+      } 
+
+      uint16_t channel_offset = 0;
+      for (unsigned int i = offset; i < pix.size() && i < 8*64* _fadecandyCount ; i++) {
+        if ( i == 1024) {
+          ofLogNotice(ofToString(pix[i].c.r));
+        }
+          OPC_SPC_packet_data[channel_offset + opc_offset + i].r = pix[i].c.r;
+          OPC_SPC_packet_data[channel_offset + opc_offset + i].g = pix[i].c.g;
+          OPC_SPC_packet_data[channel_offset + opc_offset + i].b = pix[i].c.b;
+      }
+      
+      // Send the data
+      client.sendRawBytes((char *)(OPC_SPC_packet), OPC_SPC_packet_length);
+  }
 };

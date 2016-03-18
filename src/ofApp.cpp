@@ -16,7 +16,7 @@ void ofApp::setup(){
 
   initRings();
   initChase();
-  opcClient.setup("127.0.0.1", 7890);
+  opcClient.setup("127.0.0.1", 7890, 3);
 
   timeline.play();
 }
@@ -40,9 +40,10 @@ void ofApp::initTimeline(){
 
 //--------------------------------------------------------------
 void ofApp::initChase(){
-  chase.setLeds(ringLow1.leds);
-  chase.setStartIndex(0);
-  chase.setEndIndex(64);
+  int offset = 0;
+  chase.setLeds(ringLow2.leds);
+  chase.setStartIndex(offset);
+  chase.setEndIndex(offset+64);
   chase.setChaseLength(20);
   chase.setSpeed(10);
   chase.setColor(ofColor(100));
@@ -84,7 +85,8 @@ void ofApp::updateOPC(){
   }
   else
   {
-      opcClient.writeAllChannels(ringLow1.leds);
+      opcClient.writeAll(ringLow1.leds);
+      opcClient.writeAll(ringLow2.leds, 0, 512*2);
   }
   opcClient.update();
 }

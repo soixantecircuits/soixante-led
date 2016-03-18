@@ -64,9 +64,6 @@ class MyofxOPC : public ofxOPC {
 
       uint16_t channel_offset = 0;
       for (unsigned int i = offset; i < pix.size() && i < 8*64* _fadecandyCount ; i++) {
-        if ( i == 1024) {
-          ofLogNotice(ofToString(pix[i].c.r));
-        }
           OPC_SPC_packet_data[channel_offset + opc_offset + i].r = pix[i].c.r;
           OPC_SPC_packet_data[channel_offset + opc_offset + i].g = pix[i].c.g;
           OPC_SPC_packet_data[channel_offset + opc_offset + i].b = pix[i].c.b;

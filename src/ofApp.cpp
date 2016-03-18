@@ -85,22 +85,7 @@ void ofApp::updateOPC(){
   }
   else
   {
-      // Write out the first set of data
-      vector <ofColor> colors;
-      for (int i = 0; i < 64; i++) {
-        colors.push_back(leds[i].c);
-      }
-      opcClient.writeChannelOne(colors);
-      vector <ofColor> colors2;
-      for (int i = 64; i < 128; i++) {
-        colors2.push_back(leds[i].c);
-      }
-      opcClient.writeChannelTwo(colors2);
-      vector <ofColor> colors3;
-      for (int i = 128; i < 64*3; i++) {
-        colors3.push_back(leds[i].c);
-      }
-      opcClient.writeChannelThree(colors3);
+      opcClient.writeAllChannels(leds);
   }
   opcClient.update();
 }

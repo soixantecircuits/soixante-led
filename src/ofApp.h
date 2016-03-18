@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxTimeline.h"
-#include "ofxOPC.h"
+#include "MyofxOPC.h"
 #include "Led.h"
 #include "Chase.h"
 
@@ -37,7 +37,7 @@ class ofApp : public ofBaseApp{
     void updateOPC();
 
     vector <Led> leds;
-    ofxOPC opcClient;
+    MyofxOPC opcClient;
     Chase chase;
 
 };

@@ -24,4 +24,4 @@ ${PREFIX}Flightphase/ofxRange.git
 
 ${PREFIX}emmanuelgeoffray/ofxTimeline.git -b feature-fix-video-play-pause-linux
 
-${PREFIX}DHaylock/ofxOPC.git
+${PREFIX}emmanuelgeoffray/ofxOPC.git

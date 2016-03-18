@@ -10,35 +10,16 @@ void ofApp::setup(){
   ofEnableSmoothing();
 
   initTimeline();
-#ifndef TARGET_RASPBERRY_PI
-  //initVideo();
-#endif
-  //addColorTracks();
-
 	timeline.addCurves("length", ofRange(0, 150));
 	timeline.addCurves("speed", ofRange(0, 200));
 	timeline.addColors("color");
-  mute = false;
 
   initRings();
   initChase();
   opcClient.setup("127.0.0.1", 7890);
 
   outputRectangle.set(500, 25, 250*16/9., 250);
-  timeline.setCurrentTimeSeconds(10);
   timeline.play();
-}
-
-//--------------------------------------------------------------
-void ofApp::initVideo(){
-  loaded = false;
-  if(settings.loadFile("settings.xml")){
-    string videoPath = settings.getValue("videoPath", "");
-    if(videoPath != ""){
-      loadVideo(videoPath);
-      addVideoTracksInPages(videoPath);
-    }
-  }
 }
 
 //--------------------------------------------------------------
@@ -47,84 +28,15 @@ void ofApp::initTimeline(){
   timeline.setup();
   timeline.setFrameRate(30);
 
-  timeline.setPageName("Inner Circle 1");
-  timeline.addPage("Outer Circle 1");
-  timeline.setPageName("Outer Circle 1");
-  timeline.addPage("Inner Circle 2");
-  timeline.setPageName("Inner Circle 2");
-  timeline.addPage("Outer Circle 2");
-  timeline.setPageName("Outer Circle 2");
-  timeline.addPage("Inner Circle 3");
-  timeline.setPageName("Inner Circle 3");
-  timeline.addPage("Outer Circle 3");
-  timeline.setPageName("Outer Circle 3");
-
   timeline.enableSnapToOtherKeyframes(false);
   timeline.setLoopType(OF_LOOP_NORMAL);
 
   ofAddListener(timeline.events().bangFired, this, &ofApp::bangFired);
 
-
   timeline.setOffset(ofVec2f(0,300));
   timeline.setMinimalHeaders(true);
   timeline.setShowTimeControls(true);
   timeline.setCurrentPage(0);
-}
-
-//--------------------------------------------------------------
-void ofApp::addColorTracks(){
-  for (unsigned int j = 0; j < 1; j++){
-    timeline.setCurrentPage(j);
-    for (unsigned int i = 0; i < 16; i++){
-      //timeline.addColors("color" + ofToString(j) + "_" + ofToString(i));
-      timeline.addColors("color" + ofToString(j*16+i));
-    }
-  }
-  timeline.setCurrentPage(0);
-}
-
-//--------------------------------------------------------------
-void ofApp::addVideoTracksInPages(string videoPath){
-  for (unsigned int j = 1; j < 2; j++){
-    timeline.setCurrentPage(j);
-    ofxTLVideoTrack* videoTrack = timeline.getVideoTrack("Video"+ofToString(j));
-
-    if(videoTrack == NULL){
-      timeline.addVideoTrack("Video"+ofToString(j), videoPath);
-    }
-  }
-  timeline.setCurrentPage(0);
-}
-
-//--------------------------------------------------------------
-void ofApp::loadVideo(string videoPath){
-  ofxTLVideoTrack* videoTrack = timeline.getVideoTrack("Video");
-
-  if(videoTrack == NULL){
-    videoTrack = timeline.addVideoTrack("Video", videoPath);
-    loaded = (videoTrack != NULL);
-  }
-  else{
-    loaded = videoTrack->load(videoPath);
-  }
-
-  if(loaded){
-    contentRectangle = ofRectangle(0,0, videoTrack->getPlayer()->getWidth(), videoTrack->getPlayer()->getHeight());
-
-    //timeline.clear();
-    //At the moment with video and audio tracks
-    //ofxTimeline only works correctly if the duration of the track == the duration of the timeline
-    //plan is to be able to fix this but for now...
-    timeline.setFrameRate(videoTrack->getPlayer()->getTotalNumFrames()/videoTrack->getPlayer()->getDuration());
-    timeline.setDurationInFrames(videoTrack->getPlayer()->getTotalNumFrames());
-    timeline.setTimecontrolTrack(videoTrack); //video playback will control the time
-    timeline.bringTrackToTop(videoTrack);
-  }
-  else{
-    videoPath = "";
-  }
-  settings.setValue("videoPath", videoPath);
-  settings.saveFile();        
 }
 
 //--------------------------------------------------------------
@@ -149,20 +61,6 @@ void ofApp::update(){
   if(!loaded){
     contentRectangle = ofRectangle(0,0, 16, 9); 
   }
-  /*
-  //calculate a the view for the movie, scaled into the center between the timeline and the buttons
-  float availableHeight = ofGetHeight() - timeline.getBottomLeft().y;
-  if(ofGetWidth() / availableHeight > contentRectangle.width/contentRectangle.height){
-    outputRectangle.height = availableHeight;
-    outputRectangle.width = contentRectangle.width * availableHeight / contentRectangle.height;
-  }
-  else {
-    outputRectangle.width  = ofGetWidth();
-    outputRectangle.height = contentRectangle.height * ofGetWidth()/contentRectangle.width;
-  }
-  outputRectangle.x =  ofGetWidth()/2 - outputRectangle.width/2;
-  outputRectangle.y = timeline.getBottomLeft().y;
-  */
   chase.setChaseLength(timeline.getValue("length"));
   chase.setSpeed(timeline.getValue("speed"));
   chase.setColor(timeline.getColor("color"));
@@ -171,6 +69,13 @@ void ofApp::update(){
     leds[i].c = ofColor::black;
   }
   chase.update();
+
+  updateOPC();
+}
+
+//--------------------------------------------------------------
+void ofApp::updateOPC(){
+
 
   // If the client is not connected do not try and send information
   if (!opcClient.isConnected())
@@ -329,13 +234,6 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
   if (key == 'm'){
-    if (mute){
-      timeline.getVideoPlayer("Video")->setVolume(1);
-      mute = false;
-    } else {
-      timeline.getVideoPlayer("Video")->setVolume(0);
-      mute = true;
-    }
   }
 
 }

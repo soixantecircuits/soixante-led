@@ -26,19 +26,15 @@ class ofApp : public ofBaseApp{
     
 		ofxTimeline timeline;
     void initTimeline();
-    void initVideo();
 		void bangFired(ofxTLBangEventArgs& args);
-    void loadVideo(string videoPath);
-    void addVideoTracksInPages(string videoPath);
-    void addColorTracks();
     bool loaded;
     ofxXmlSettings settings;
     ofRectangle contentRectangle; //matched to video size
     ofRectangle outputRectangle;
-    bool mute;
     void initRings();
     void drawRings();
     void initChase();
+    void updateOPC();
 
     vector <Led> leds;
     ofxOPC opcClient;

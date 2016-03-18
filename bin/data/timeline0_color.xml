@@ -1,8 +1,14 @@
 <keyframes>
     <key>
+        <sampleX>0.999999881</sampleX>
+        <sampleY>0.014999998</sampleY>
+        <time>00:00:00:005</time>
+        <value>0.000000000</value>
+    </key>
+    <key>
         <sampleX>0.810249805</sampleX>
         <sampleY>0.099999987</sampleY>
-        <time>00:00:00:290</time>
-        <value>0.475000024</value>
+        <time>00:00:03:302</time>
+        <value>0.000000000</value>
     </key>
 </keyframes>

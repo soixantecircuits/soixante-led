@@ -99,6 +99,7 @@ ipch/
 *modexp64.so
 */*/*.tags
 bin/nike-chasing-light
+bin/nike-chasing-light_debug
 
 
 # big files

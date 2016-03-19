@@ -9,16 +9,28 @@ void ofApp::setup(){
   ofSetVerticalSync(true);
   ofEnableSmoothing();
 
-  initTimeline();
-	timeline.addCurves("length", ofRange(0, 150));
-	timeline.addCurves("speed", ofRange(0, 200));
-	timeline.addColors("color");
-
   initRings();
-  initChase();
-  opcClient.setup("127.0.0.1", 7890, 3);
+  initChases();
+
+  initTimeline();
+  initCurves();
+
+  opcClient.setup("127.0.0.1", 7890, 10);
 
   timeline.play();
+}
+
+//--------------------------------------------------------------
+void ofApp::initCurves(){
+  timeline.setPageName("bottom");
+  for (int i = 0; i < 6; i++){
+    timeline.addCurves("length_" + ofToString(i), ofRange(0, chases[i].getLength()*100));
+    timeline.addCurves("speed_" + ofToString(i), ofRange(0, chases[i].getLength()*10));
+    timeline.addColors("color_" + ofToString(i));
+  }
+  timeline.addPage("top");
+  timeline.setPageName("top");
+  timeline.setCurrentPage(0);
 }
 
 //--------------------------------------------------------------
@@ -26,6 +38,7 @@ void ofApp::initTimeline(){
   ofxTimeline::removeCocoaMenusFromGlut("nike-chasing-light");
   timeline.setup();
   timeline.setFrameRate(30);
+  timeline.setDurationInSeconds(5*60);
 
   timeline.enableSnapToOtherKeyframes(false);
   timeline.setLoopType(OF_LOOP_NORMAL);
@@ -35,18 +48,23 @@ void ofApp::initTimeline(){
   timeline.setOffset(ofVec2f(0,300));
   timeline.setMinimalHeaders(true);
   timeline.setShowTimeControls(true);
-  timeline.setCurrentPage(0);
 }
 
 //--------------------------------------------------------------
-void ofApp::initChase(){
-  int offset = 0;
-  chase.setLeds(ringLow2.leds);
-  chase.setStartIndex(offset);
-  chase.setEndIndex(offset+64);
-  chase.setChaseLength(20);
-  chase.setSpeed(10);
-  chase.setColor(ofColor(100));
+void ofApp::initChases(){
+  chases.resize(6);
+  for (int i = 0; i < 6; i++){
+    int offset = 0;
+    int length = rings[i].leds.size();
+    chases[i].setLeds(rings[i].leds);
+    chases[i].setStartIndex(offset);
+    chases[i].setEndIndex(offset+length);
+    chases[i].setChaseLength(20);
+    chases[i].setSpeed(10);
+    chases[i].setColor(ofColor(100));
+    chases[i].setTimeline(timeline);
+  }
+  chases[3].setLinked(14);
 }
 
 
@@ -57,18 +75,17 @@ void ofApp::bangFired(ofxTLBangEventArgs& args){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-  chase.setChaseLength(timeline.getValue("length"));
-  chase.setSpeed(timeline.getValue("speed"));
-  chase.setColor(timeline.getColor("color"));
+  for (int i = 0; i < 6; i++){
+    rings[i].black();
+  }
 
-  ringLow1.black();
-  ringLow2.black();
-  ringLow3.black();
-  ringLow4.black();
-  ringLow5.black();
-  ringLow6.black();
+  for (int i = 0; i < 6; i++){
+    chases[i].setChaseLength(timeline.getValue("length_" + ofToString(i)));
+    chases[i].setSpeed(timeline.getValue("speed_" + ofToString(i)));
+    chases[i].setColor(timeline.getColor("color_" + ofToString(i)));
 
-  chase.update();
+    chases[i].update();
+  }
 
   updateOPC();
 }
@@ -85,18 +102,24 @@ void ofApp::updateOPC(){
   }
   else
   {
-      opcClient.writeAll(ringLow1.leds);
-      opcClient.writeAll(ringLow2.leds, 0, 512*2);
+      opcClient.writeAll(rings[0].leds);
+      opcClient.writeAll(rings[1].leds, 0, 512*2);
   }
   opcClient.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::initRings(){
+  rings.resize(6);
+	if( xmlSettings.loadFile("settings.xml") ){
+		ofLogNotice("settings.xml loaded!");
+	}else{
+		ofLogNotice("unable to load settings.xml check data/ folder");
+	}
   ofVec2f previewPos = ofVec2f(50, 50);
 
   // zone 1
-  float size = 700;
+  float size = xmlSettings.getValue("leds:ringLow1:count", 700);
   float x = previewPos.x + 50; // Offset Value for grabber
   float y = previewPos.y + 50; // Offset Value for grabber
   float radius = 90;
@@ -108,10 +131,11 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    ringLow1.leds.push_back(Led(ofVec2f(rx,ry), i));
+    rings[0].leds.push_back(Led(ofVec2f(rx,ry), i));
   }
   
   // zone 2
+  size = xmlSettings.getValue("leds:ringLow2:count", 700);
   radius = 80;
   for (int i = 0; i < size; i++)
   {
@@ -121,10 +145,11 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    ringLow2.leds.push_back(Led(ofVec2f(rx,ry), i));
+    rings[1].leds.push_back(Led(ofVec2f(rx,ry), i));
   }
 
   // zone 3
+  size = xmlSettings.getValue("leds:ringLow3:count", 700);
   radius = 70;
   for (int i = 0; i < size; i++)
   {
@@ -134,23 +159,31 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    ringLow3.leds.push_back(Led(ofVec2f(rx,ry), i));
+    rings[2].leds.push_back(Led(ofVec2f(rx,ry), i));
   }
   // zone 4
+  size = xmlSettings.getValue("leds:ringLow4:count", 700);
   radius = 60;
-  for (int i = 0; i < size; i++)
+  int linked = 14;
+  for (int i = 0; i < size/linked; i++)
   {
-    float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
+    float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size/linked);
 
-    // Generate the position of the grabber points
-    float rx = x + (radius * cos(angle));
-    float ry = y + (radius * sin(angle));
+    for (int j = 0; j < linked; j++)
+    {
+      int radius_ = radius - j;
+      // Generate the position of the grabber points
+      float rx = x + (radius_ * cos(angle));
+      float ry = y + (radius_ * sin(angle));
+      rings[3].leds.push_back(Led(ofVec2f(rx,ry), i+j));
+    }
+  
 
-    ringLow4.leds.push_back(Led(ofVec2f(rx,ry), i));
   }
 
   // zone 5
-  radius = 50;
+  size = xmlSettings.getValue("leds:ringLow5:count", 700);
+  radius = 30;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
@@ -159,10 +192,11 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    ringLow5.leds.push_back(Led(ofVec2f(rx,ry), i));
+    rings[4].leds.push_back(Led(ofVec2f(rx,ry), i));
   }
   // zone 6
-  radius = 40;
+  size = xmlSettings.getValue("leds:ringLow6:count", 700);
+  radius = 20;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
@@ -171,7 +205,7 @@ void ofApp::initRings(){
     float rx = x + (radius * cos(angle));
     float ry = y + (radius * sin(angle));
 
-    ringLow6.leds.push_back(Led(ofVec2f(rx,ry), i));
+    rings[5].leds.push_back(Led(ofVec2f(rx,ry), i));
   }
 }
 
@@ -184,14 +218,9 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::drawRings(){
-
-  ringLow1.draw();
-  ringLow2.draw();
-  ringLow3.draw();
-  ringLow4.draw();
-  ringLow5.draw();
-  ringLow6.draw();
-
+  for (int i = 0; i < 6; i++){
+    rings[i].draw();
+  }
 }
 
 //--------------------------------------------------------------

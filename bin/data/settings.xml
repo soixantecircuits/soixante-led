@@ -1,1 +1,21 @@
-<videoPath>Su16_FB_NTK_MP4_ViewingCopy.mp4</videoPath>
+<leds>
+  <ringLow1>
+    <count>563</count>
+  </ringLow1>
+  <ringLow2>
+    <count>494</count>
+  </ringLow2>
+  <ringLow3>
+    <count>423</count>
+  </ringLow3>
+  <ringLow4>
+    <count>420</count>
+  </ringLow4>
+  <ringLow5>
+    <count>100</count>
+  </ringLow5>
+  <ringLow6>
+    <count>325</count>
+  </ringLow6>
+</leds>
+

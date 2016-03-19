@@ -1,20 +1,26 @@
 <positions>
     <element name="color">
         <x>0.000000000</x>
-        <y>426.000000000</y>
-        <width>850.000000000</width>
+        <y>543.000000000</y>
+        <width>1600.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="length">
         <x>0.000000000</x>
         <y>334.000000000</y>
-        <width>850.000000000</width>
+        <width>1600.000000000</width>
+        <height>84.000000000</height>
+    </element>
+    <element name="lfo">
+        <x>0.000000000</x>
+        <y>543.000000000</y>
+        <width>1600.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="speed">
         <x>0.000000000</x>
-        <y>380.000000000</y>
-        <width>850.000000000</width>
-        <height>40.000000000</height>
+        <y>424.000000000</y>
+        <width>1600.000000000</width>
+        <height>113.000000000</height>
     </element>
 </positions>

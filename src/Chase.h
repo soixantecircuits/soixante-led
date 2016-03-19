@@ -2,6 +2,7 @@
 #pragma once
 #include "ofMain.h"
 #include "Led.h"
+#include "ofxTimeline.h"
 
 class Chase {
   public:
@@ -12,6 +13,7 @@ class Chase {
       speed = 10;
       color = ofColor::white;
       pos = 0;
+      linked = 1; 
     };
     void setLeds(vector<Led> & leds){
       this->leds = & leds;
@@ -28,36 +30,59 @@ class Chase {
     void setSpeed(float speed){
       this->speed = speed;
     };
+    void setLinked(int linked){
+      this->linked = linked;
+    };
     void setColor(ofColor color){
       this->color = color;
     };
+    void setTimeline(ofxTimeline & timeline){
+      this->timeline = &timeline;
+    };
+    // deprecated
     void updateSimple(){
       pos += speed/100.;
-      pos = fmod(pos, endIndex - startIndex);
+      pos = fmod(pos, getLength());
       for (int i = 0; i < length; i++){
-        int index = startIndex + fmod( i + floor(pos), endIndex - startIndex);
+        int index = startIndex + fmod( i + floor(pos),getLength());
         (*leds)[index].c = color;
       }
     };
     void update(){
-      pos += speed/100.;
-      pos = fmod(pos, endIndex - startIndex);
+      if (timeline != NULL && timeline->getIsPlaying()){
+        pos += speed/100.;
+      }
+      
+      //pos = ofMap(timeline->getCurrentTimeMillis(), 0, 1000000./speed, 0, endIndex - startIndex);
+      pos = fmod(pos, getLength());
+      //pos = timeline->getValue("lfo") * (endIndex - startIndex);
       float gaussian_intensity = 100;
       float sd = length;
-      for (int i = 0; i < endIndex - startIndex; i++){
-        int index = startIndex + fmod( i + floor(pos), endIndex - startIndex);
+      for (int i = 0; i < getLength(); i++){
+        // for the stripes, control them all together
+        int index = startIndex + fmod( i + floor(pos), getLength());
         float value = gaussian(index, pos, sd)*gaussian_intensity/100.;
-        value += gaussian(index, pos + (endIndex - startIndex), sd)*gaussian_intensity/100.;
-        value += gaussian(index, pos - (endIndex - startIndex), sd)*gaussian_intensity/100.;
-        (*leds)[index].c = color;
-        (*leds)[index].c.setBrightness(value*color.getBrightness());
+        value += gaussian(index, pos + getLength(), sd)*gaussian_intensity/100.;
+        value += gaussian(index, pos - getLength(), sd)*gaussian_intensity/100.;
+        for (int j = 0; j < linked; j++){
+          int index_ = index*linked + j;
+          if (index_ < 0 || index_ >= leds->size()){
+            ofLogNotice("Something went wrong with this index: " + ofToString(index_));
+            break;
+          }
+          (*leds)[index_].c = color;
+          (*leds)[index_].c.setBrightness(value*color.getBrightness());
+        }
       }
     };
     float gaussian(float x, float mean, float variance) {  
       float dx = x - mean;  
       //return (1.f / sqrtf(TWO_PI * variance)) * expf(-(dx * dx) / (2 * variance));  
       return expf(-(dx * dx) / (2 * variance));  
-    }  
+    };
+    int getLength(){
+      return (endIndex - startIndex)/linked;
+    }
 
   private:
     vector<Led> *leds;
@@ -67,4 +92,6 @@ class Chase {
     float speed;
     ofColor color;
     float pos;
+    ofxTimeline* timeline;
+    int linked;
 };

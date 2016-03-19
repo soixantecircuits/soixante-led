@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxTimeline.h"
+#include "ofxXmlSettings.h"
 #include "MyofxOPC.h"
 #include "LedRing.h"
 #include "Chase.h"
@@ -25,20 +26,16 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
 		ofxTimeline timeline;
+		ofxXmlSettings xmlSettings;
     void initTimeline();
 		void bangFired(ofxTLBangEventArgs& args);
     void initRings();
     void drawRings();
-    void initChase();
+    void initCurves();
+    void initChases();
     void updateOPC();
 
-    LedRing ringLow1;
-    LedRing ringLow2;
-    LedRing ringLow3;
-    LedRing ringLow4;
-    LedRing ringLow5;
-    LedRing ringLow6;
     MyofxOPC opcClient;
-    Chase chase;
-
+    vector<LedRing> rings;
+    vector<Chase> chases;
 };

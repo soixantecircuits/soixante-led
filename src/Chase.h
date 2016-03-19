@@ -14,6 +14,7 @@ class Chase {
       color = ofColor::white;
       pos = 0;
       linked = 1; 
+      clockwise = 1;
     };
     void setLeds(vector<Led> & leds){
       this->leds = & leds;
@@ -33,6 +34,9 @@ class Chase {
     void setLinked(int linked){
       this->linked = linked;
     };
+    void setClockwise(int clockwise){
+      this->clockwise = clockwise;
+    };
     void setColor(ofColor color){
       this->color = color;
     };
@@ -50,11 +54,11 @@ class Chase {
     };
     void update(){
       if (timeline != NULL && timeline->getIsPlaying()){
-        pos += speed/100.;
+        pos += clockwise*speed/100.;
       }
       
       //pos = ofMap(timeline->getCurrentTimeMillis(), 0, 1000000./speed, 0, endIndex - startIndex);
-      pos = fmod(pos, getLength());
+      pos = fmod(getLength() + pos, getLength());
       //pos = timeline->getValue("lfo") * (endIndex - startIndex);
       float gaussian_intensity = 100;
       float sd = length;
@@ -82,7 +86,12 @@ class Chase {
     };
     int getLength(){
       return (endIndex - startIndex)/linked;
-    }
+    };
+    void setBrightness(float b){
+      for (int i = startIndex; i < endIndex; i++){
+          (*leds)[i].c.setBrightness(b*color.getBrightness());
+      }
+    };
 
   private:
     vector<Led> *leds;
@@ -94,4 +103,5 @@ class Chase {
     float pos;
     ofxTimeline* timeline;
     int linked;
+    int clockwise;
 };

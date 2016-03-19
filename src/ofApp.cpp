@@ -27,9 +27,20 @@ void ofApp::initCurves(){
     timeline.addCurves("length_" + ofToString(i), ofRange(0, chases[i].getLength()*100));
     timeline.addCurves("speed_" + ofToString(i), ofRange(0, chases[i].getLength()*10));
     timeline.addColors("color_" + ofToString(i));
+    if (i == 3 || i == 4){
+      timeline.addLFO("breath_" + ofToString(i));
+    }
+
   }
-  timeline.addPage("top");
-  timeline.setPageName("top");
+  timeline.addPage("last ring chases");
+  timeline.setPageName("last ring chases");
+ int moreChases = 8;
+  for (int i = 6; i < 6 + moreChases; i++){
+    timeline.addCurves("length_" + ofToString(i), ofRange(0, 100));
+    timeline.addCurves("speed_" + ofToString(i), ofRange(0, 100));
+    timeline.addColors("color_" + ofToString(i));
+
+  }
   timeline.setCurrentPage(0);
 }
 
@@ -52,7 +63,7 @@ void ofApp::initTimeline(){
 
 //--------------------------------------------------------------
 void ofApp::initChases(){
-  chases.resize(6);
+  chases.resize(14);
   for (int i = 0; i < 6; i++){
     int offset = 0;
     int length = rings[i].leds.size();
@@ -65,6 +76,21 @@ void ofApp::initChases(){
     chases[i].setTimeline(timeline);
   }
   chases[3].setLinked(14);
+  chases[0].setClockwise(-1);
+
+  // add many small chases for the last ring
+   int moreChases = 8;
+  for (int i = 6; i < 6 + moreChases; i++){
+    int offset = i * rings[5].leds.size()/moreChases;
+    int length =  rings[5].leds.size()/moreChases;
+    chases[i].setLeds(rings[5].leds);
+    chases[i].setStartIndex(offset);
+    chases[i].setEndIndex(offset+length);
+    chases[i].setChaseLength(20);
+    chases[i].setSpeed(10);
+    chases[i].setColor(ofColor(100));
+    chases[i].setTimeline(timeline);
+  }
 }
 
 
@@ -75,16 +101,19 @@ void ofApp::bangFired(ofxTLBangEventArgs& args){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-  for (int i = 0; i < 6; i++){
+  for (int i = 0; i < rings.size(); i++){
     rings[i].black();
   }
 
-  for (int i = 0; i < 6; i++){
+  for (int i = 0; i < chases.size(); i++){
     chases[i].setChaseLength(timeline.getValue("length_" + ofToString(i)));
     chases[i].setSpeed(timeline.getValue("speed_" + ofToString(i)));
     chases[i].setColor(timeline.getColor("color_" + ofToString(i)));
 
     chases[i].update();
+    if (i == 3 || i == 4){
+      chases[i].setBrightness(timeline.getValue("breath_" + ofToString(i)));
+    }
   }
 
   updateOPC();

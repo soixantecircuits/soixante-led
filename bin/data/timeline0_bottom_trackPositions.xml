@@ -1,15 +1,51 @@
 <positions>
     <element name="breath_3">
         <x>0.000000000</x>
-        <y>871.000000000</y>
+        <y>657.000000000</y>
         <width>1600.000000000</width>
-        <height>40.000000000</height>
+        <height>14.000000000</height>
     </element>
     <element name="breath_4">
         <x>0.000000000</x>
-        <y>966.000000000</y>
+        <y>732.000000000</y>
         <width>1600.000000000</width>
-        <height>22.000000000</height>
+        <height>0.000000000</height>
+    </element>
+    <element name="brightness_0">
+        <x>0.000000000</x>
+        <y>435.000000000</y>
+        <width>1600.000000000</width>
+        <height>10.000000000</height>
+    </element>
+    <element name="brightness_1">
+        <x>0.000000000</x>
+        <y>506.000000000</y>
+        <width>1600.000000000</width>
+        <height>38.000000000</height>
+    </element>
+    <element name="brightness_2">
+        <x>0.000000000</x>
+        <y>596.000000000</y>
+        <width>1600.000000000</width>
+        <height>4.000000000</height>
+    </element>
+    <element name="brightness_3">
+        <x>0.000000000</x>
+        <y>651.000000000</y>
+        <width>1600.000000000</width>
+        <height>0.000000000</height>
+    </element>
+    <element name="brightness_4">
+        <x>0.000000000</x>
+        <y>715.000000000</y>
+        <width>1600.000000000</width>
+        <height>11.000000000</height>
+    </element>
+    <element name="brightness_5">
+        <x>0.000000000</x>
+        <y>813.000000000</y>
+        <width>1600.000000000</width>
+        <height>19.000000000</height>
     </element>
     <element name="color">
         <x>0.000000000</x>
@@ -19,39 +55,39 @@
     </element>
     <element name="color_0">
         <x>0.000000000</x>
-        <y>386.000000000</y>
+        <y>424.000000000</y>
         <width>1600.000000000</width>
-        <height>14.000000000</height>
+        <height>5.000000000</height>
     </element>
     <element name="color_1">
         <x>0.000000000</x>
-        <y>489.000000000</y>
+        <y>500.000000000</y>
         <width>1600.000000000</width>
-        <height>9.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="color_2">
         <x>0.000000000</x>
-        <y>751.000000000</y>
+        <y>586.000000000</y>
         <width>1600.000000000</width>
-        <height>13.000000000</height>
+        <height>4.000000000</height>
     </element>
     <element name="color_3">
         <x>0.000000000</x>
-        <y>829.000000000</y>
+        <y>645.000000000</y>
         <width>1600.000000000</width>
-        <height>36.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="color_4">
         <x>0.000000000</x>
-        <y>935.000000000</y>
+        <y>709.000000000</y>
         <width>1600.000000000</width>
-        <height>25.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="color_5">
         <x>0.000000000</x>
-        <y>1057.000000000</y>
+        <y>807.000000000</y>
         <width>1600.000000000</width>
-        <height>17.000000000</height>
+        <height>0.000000000</height>
     </element>
     <element name="length">
         <x>0.000000000</x>
@@ -63,37 +99,37 @@
         <x>0.000000000</x>
         <y>352.000000000</y>
         <width>1600.000000000</width>
-        <height>13.000000000</height>
+        <height>20.000000000</height>
     </element>
     <element name="length_1">
         <x>0.000000000</x>
-        <y>406.000000000</y>
+        <y>451.000000000</y>
         <width>1600.000000000</width>
-        <height>3.000000000</height>
+        <height>28.000000000</height>
     </element>
     <element name="length_2">
         <x>0.000000000</x>
-        <y>504.000000000</y>
+        <y>550.000000000</y>
         <width>1600.000000000</width>
-        <height>17.000000000</height>
+        <height>14.000000000</height>
     </element>
     <element name="length_3">
         <x>0.000000000</x>
-        <y>770.000000000</y>
+        <y>606.000000000</y>
         <width>1600.000000000</width>
         <height>17.000000000</height>
     </element>
     <element name="length_4">
         <x>0.000000000</x>
-        <y>917.000000000</y>
+        <y>677.000000000</y>
         <width>1600.000000000</width>
-        <height>0.000000000</height>
+        <height>14.000000000</height>
     </element>
     <element name="length_5">
         <x>0.000000000</x>
-        <y>994.000000000</y>
+        <y>738.000000000</y>
         <width>1600.000000000</width>
-        <height>11.000000000</height>
+        <height>13.000000000</height>
     </element>
     <element name="lfo">
         <x>0.000000000</x>
@@ -109,38 +145,38 @@
     </element>
     <element name="speed_0">
         <x>0.000000000</x>
-        <y>371.000000000</y>
+        <y>378.000000000</y>
         <width>1600.000000000</width>
-        <height>9.000000000</height>
+        <height>40.000000000</height>
     </element>
     <element name="speed_1">
         <x>0.000000000</x>
-        <y>415.000000000</y>
+        <y>485.000000000</y>
         <width>1600.000000000</width>
-        <height>68.000000000</height>
+        <height>9.000000000</height>
     </element>
     <element name="speed_2">
         <x>0.000000000</x>
-        <y>527.000000000</y>
+        <y>570.000000000</y>
         <width>1600.000000000</width>
-        <height>218.000000000</height>
+        <height>10.000000000</height>
     </element>
     <element name="speed_3">
         <x>0.000000000</x>
-        <y>793.000000000</y>
+        <y>629.000000000</y>
         <width>1600.000000000</width>
-        <height>30.000000000</height>
+        <height>10.000000000</height>
     </element>
     <element name="speed_4">
         <x>0.000000000</x>
-        <y>923.000000000</y>
+        <y>697.000000000</y>
         <width>1600.000000000</width>
         <height>6.000000000</height>
     </element>
     <element name="speed_5">
         <x>0.000000000</x>
-        <y>1011.000000000</y>
+        <y>757.000000000</y>
         <width>1600.000000000</width>
-        <height>40.000000000</height>
+        <height>44.000000000</height>
     </element>
 </positions>

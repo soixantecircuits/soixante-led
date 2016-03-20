@@ -27,6 +27,7 @@ void ofApp::initCurves(){
     timeline.addCurves("length_" + ofToString(i), ofRange(0, chases[i].getLength()*100));
     timeline.addCurves("speed_" + ofToString(i), ofRange(0, chases[i].getLength()*10));
     timeline.addColors("color_" + ofToString(i));
+    timeline.addCurves("brightness_" + ofToString(i));
     if (i == 3 || i == 4){
       timeline.addLFO("breath_" + ofToString(i));
     }
@@ -37,8 +38,10 @@ void ofApp::initCurves(){
  int moreChases = 8;
   for (int i = 6; i < 6 + moreChases; i++){
     timeline.addCurves("length_" + ofToString(i), ofRange(0, 100));
-    timeline.addCurves("speed_" + ofToString(i), ofRange(0, 100));
+    timeline.addCurves("speed_" + ofToString(i), ofRange(0, 1000));
     timeline.addColors("color_" + ofToString(i));
+    timeline.addCurves("brightness_" + ofToString(i));
+    timeline.addLFO("lfo_" + ofToString(i));
 
   }
   timeline.setCurrentPage(0);
@@ -81,8 +84,10 @@ void ofApp::initChases(){
   // add many small chases for the last ring
    int moreChases = 8;
   for (int i = 6; i < 6 + moreChases; i++){
-    int offset = i * rings[5].leds.size()/moreChases;
-    int length =  rings[5].leds.size()/moreChases;
+    //int offset = (i-6) * rings[5].leds.size()/moreChases;
+    //int length =  rings[5].leds.size()/moreChases;
+    int offset = 0;
+    int length = rings[5].leds.size();
     chases[i].setLeds(rings[5].leds);
     chases[i].setStartIndex(offset);
     chases[i].setEndIndex(offset+length);
@@ -90,6 +95,7 @@ void ofApp::initChases(){
     chases[i].setSpeed(10);
     chases[i].setColor(ofColor(100));
     chases[i].setTimeline(timeline);
+    chases[i].setLfo(i);
   }
 }
 
@@ -109,10 +115,14 @@ void ofApp::update(){
     chases[i].setChaseLength(timeline.getValue("length_" + ofToString(i)));
     chases[i].setSpeed(timeline.getValue("speed_" + ofToString(i)));
     chases[i].setColor(timeline.getColor("color_" + ofToString(i)));
+    chases[i].setBrightness(timeline.getValue("brightness_" + ofToString(i)));
 
-    chases[i].update();
     if (i == 3 || i == 4){
       chases[i].setBrightness(timeline.getValue("breath_" + ofToString(i)));
+      chases[i].fullLine();
+    }
+    else {
+      chases[i].update();
     }
   }
 
@@ -212,7 +222,7 @@ void ofApp::initRings(){
 
   // zone 5
   size = xmlSettings.getValue("leds:ringLow5:count", 700);
-  radius = 30;
+  radius = 5;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);
@@ -225,7 +235,7 @@ void ofApp::initRings(){
   }
   // zone 6
   size = xmlSettings.getValue("leds:ringLow6:count", 700);
-  radius = 20;
+  radius = 35;
   for (int i = 0; i < size; i++)
   {
     float angle = (1.0 * i) * (2.0 * PI)/(1.0 * size);

@@ -15,7 +15,7 @@ class LedRing {
         {
             ofFill();
             ofSetColor(leds[i].c);
-            ofDrawCircle(leds[i].pos.x, leds[i].pos.y, 4);
+            ofDrawCircle(leds[i].pos.x, leds[i].pos.y, 2);
         }
     }
 

@@ -18,6 +18,7 @@ void ofApp::setup(){
   opcClient.setup("127.0.0.1", 7890, 10);
 
   timeline.play();
+  logo.load("logo256.png");
 }
 
 //--------------------------------------------------------------
@@ -155,7 +156,7 @@ void ofApp::initRings(){
 	}else{
 		ofLogNotice("unable to load settings.xml check data/ folder");
 	}
-  ofVec2f previewPos = ofVec2f(50, 50);
+  ofVec2f previewPos = ofVec2f(400, 100);
 
   // zone 1
   float size = xmlSettings.getValue("leds:ringLow1:count", 700);
@@ -253,6 +254,7 @@ void ofApp::draw(){
   ofBackground(255*.15);
   timeline.draw();	
   drawRings();
+  logo.draw(20,20, 128, 128/logo.getWidth()*logo.getHeight());
 }
 
 //--------------------------------------------------------------

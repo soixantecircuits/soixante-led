@@ -38,4 +38,6 @@ class ofApp : public ofBaseApp{
     MyofxOPC opcClient;
     vector<LedRing> rings;
     vector<Chase> chases;
+
+    ofImage logo;
 };

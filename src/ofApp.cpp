@@ -37,7 +37,7 @@ void ofApp::initCurves(){
   timeline.setPageName("last ring chases");
  int moreChases = 8;
   for (int i = 6; i < 6 + moreChases; i++){
-    timeline.addCurves("length_" + ofToString(i), ofRange(0, 100));
+    timeline.addCurves("length_" + ofToString(i), ofRange(0, 1000));
     timeline.addCurves("speed_" + ofToString(i), ofRange(0, 1000));
     timeline.addColors("color_" + ofToString(i));
     timeline.addCurves("brightness_" + ofToString(i));

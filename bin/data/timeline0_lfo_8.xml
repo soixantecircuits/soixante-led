@@ -1,5 +1,17 @@
 <keyframes>
     <key>
+        <type>0</type>
+        <phaseShift>0.000000000</phaseShift>
+        <amplitude>1.000000000</amplitude>
+        <frequency>1.000000000</frequency>
+        <seed>0.000000000</seed>
+        <center>-0.321000040</center>
+        <interpolate>1</interpolate>
+        <expInterpolate>0</expInterpolate>
+        <time>00:00:40:475</time>
+        <value>0.571428537</value>
+    </key>
+    <key>
         <type>1</type>
         <phaseShift>0.000000000</phaseShift>
         <amplitude>0.154999971</amplitude>
@@ -8,8 +20,8 @@
         <center>-0.369000018</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
-        <time>00:00:39:073</time>
-        <value>0.631055713</value>
+        <time>00:00:46:945</time>
+        <value>0.624844551</value>
     </key>
     <key>
         <type>1</type>

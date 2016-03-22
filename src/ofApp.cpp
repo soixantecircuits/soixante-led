@@ -32,7 +32,6 @@ void ofApp::initCurves(){
     if (i == 3 || i == 4){
       timeline.addLFO("breath_" + ofToString(i));
     }
-
   }
   timeline.addPage("last ring chases");
   timeline.setPageName("last ring chases");
@@ -128,6 +127,7 @@ void ofApp::update(){
   }
 
   updateOPC();
+  //ofLogNotice("Framerate", ofToString(ofGetFrameRate()));
 }
 
 //--------------------------------------------------------------
@@ -251,10 +251,12 @@ void ofApp::initRings(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+#ifndef TARGET_RASPBERRY_PI
   ofBackground(255*.15);
   timeline.draw();	
   drawRings();
   logo.draw(20,20, 128, 128/logo.getWidth()*logo.getHeight());
+#endif
 }
 
 //--------------------------------------------------------------

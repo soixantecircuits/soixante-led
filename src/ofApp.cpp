@@ -15,7 +15,7 @@ void ofApp::setup(){
   initTimeline();
   initCurves();
 
-  opcClient.setup("127.0.0.1", 7890, 10);
+  opcClient.setup("127.0.0.1", 7890, 14);
 
   timeline.play();
   logo.load("logo256.png");
@@ -142,8 +142,12 @@ void ofApp::updateOPC(){
   }
   else
   {
-      opcClient.writeAll(rings[0].leds);
-      opcClient.writeAll(rings[1].leds, 0, 512*2);
+      opcClient.writeAll(rings[0].leds); // F - 0 - 1024
+      opcClient.writeAll(rings[1].leds, 0, 512*2); // E 1024
+      opcClient.writeAll(rings[2].leds, 0, 512*3); // D 1536
+      opcClient.writeAll(rings[3].leds, 0, 512*4); // C 2048
+      opcClient.writeAll(rings[4].leds, 0, 512*5); // B 2560
+      opcClient.writeAll(rings[5].leds, 0, 512*6); // A 3072
   }
   opcClient.update();
 }

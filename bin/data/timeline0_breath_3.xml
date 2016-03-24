@@ -14,10 +14,10 @@
     <key>
         <type>0</type>
         <phaseShift>0.000000000</phaseShift>
-        <amplitude>0.541000009</amplitude>
+        <amplitude>0.472999990</amplitude>
         <frequency>120.000000000</frequency>
         <seed>0.000000000</seed>
-        <center>-0.037000004</center>
+        <center>0.055999998</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
         <time>00:01:09:140</time>

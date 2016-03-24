@@ -19,8 +19,62 @@
             "type": "fadecandy",
             "serial": "TVBJJBNHXVQBIDEP",
             "map": [
+                [ 0, 3072, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
+            "serial": "AGSARRJBOULBTLGD",
+            "map": [
+                [ 0, 1536, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
+            "serial": "HNNDOWLVIYPFVDMH",
+            "map": [
+                [ 0, 3072, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
+            "serial": "JPNLSAXVYSDLZXUB",
+            "map": [
+                [ 0, 3072, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
+            "serial": "IIUEJLXDMIFDNTML",
+            "map": [
+                [ 0, 1536, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
+            "serial": "FFBZYOEWCMTNBDEP",
+            "map": [
                 [ 0, 1024, 0, 512 ]
             ]
-        }
+        },
+        {
+            "type": "fadecandy",
+            "serial": "IQKWXXQSOSJVXXAF",
+            "map": [
+                [ 0, 0, 0, 512 ]
+            ]
+        },
+                {
+                        "type": "enttec",
+                        "serial": "EN087146",
+                        "map": [
+                                [ 0, 2048, "l", 1 ],
+                                [ 0, 2048, "l", 2 ],
+                                [ 0, 2560, "l", 3 ],
+                                [ 0, 1536, "l", 4 ],
+                                [ 0, 1536, "l", 5 ],
+                                [ 0, 1024, "l", 6 ]
+                        ]
+                }
     ]
 }

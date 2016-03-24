@@ -24,6 +24,20 @@
         },
         {
             "type": "fadecandy",
+            "serial": "NZJFYCDHCIRLXXIH",
+            "map": [
+                [ 0, 0, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
+            "serial": "DFTZUEYQCYHNHLWT",
+            "map": [
+                [ 0, 1024, 0, 512 ]
+            ]
+        },
+        {
+            "type": "fadecandy",
             "serial": "AGSARRJBOULBTLGD",
             "map": [
                 [ 0, 1536, 0, 512 ]
@@ -71,9 +85,9 @@
                                 [ 0, 2048, "l", 1 ],
                                 [ 0, 2048, "l", 2 ],
                                 [ 0, 2560, "l", 3 ],
-                                [ 0, 1536, "l", 4 ],
-                                [ 0, 1536, "l", 5 ],
-                                [ 0, 1024, "l", 6 ]
+                                [ 0, 2048, "l", 4 ],
+                                [ 0, 2048, "l", 5 ],
+                                [ 0, 2560, "l", 6 ]
                         ]
                 }
     ]

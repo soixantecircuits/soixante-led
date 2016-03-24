@@ -8,7 +8,7 @@
         <center>-0.298999995</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
-        <time>00:00:40:575</time>
+        <time>00:00:32:872</time>
         <value>0.562500000</value>
     </key>
     <key>
@@ -20,7 +20,7 @@
         <center>0.354999989</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
-        <time>00:00:46:952</time>
+        <time>00:00:39:249</time>
         <value>0.239583969</value>
     </key>
     <key>
@@ -32,7 +32,7 @@
         <center>0.324000001</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
-        <time>00:01:01:586</time>
+        <time>00:00:53:883</time>
         <value>0.333333611</value>
     </key>
     <key>
@@ -44,7 +44,7 @@
         <center>0.324000001</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
-        <time>00:01:09:991</time>
+        <time>00:01:05:481</time>
         <value>0.245833576</value>
     </key>
     <key>
@@ -56,7 +56,7 @@
         <center>0.324000001</center>
         <interpolate>1</interpolate>
         <expInterpolate>0</expInterpolate>
-        <time>00:01:32:690</time>
+        <time>00:01:26:138</time>
         <value>0.333333611</value>
     </key>
 </keyframes>

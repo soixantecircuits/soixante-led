@@ -1,4 +1,4 @@
-nike-chasing-light
+soixante-led
 
 Controlling LED through fadeCandy, using openFrameworks and ofxTimeline
 
@@ -6,7 +6,7 @@ Controlling LED through fadeCandy, using openFrameworks and ofxTimeline
 
 Install [openFrameworks](openframeworks.cc)
 
-Clone this repo inside of/apps/soixante
+Clone this repo inside path/to/of/apps/soixante
 
 and then 
 
@@ -24,7 +24,7 @@ git clone https://github.com/scanlime/fadecandy.git
 cd fadecandy/server
 make submodules
 make
-./fcserver
+sudo ./fcserver path/to/of/apps/soixante/soixante-led/fade-candy-settings.json
 open http://127.0.0.1:7890
 
 ```
